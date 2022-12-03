@@ -12,11 +12,39 @@ fn main() {
     for line in buf_reader.lines() {
         if let Ok(game) = line {
             let plays: Vec<&str> = game.split_whitespace().collect();
-            score = score + 
+            score = score + get_points_for_move(plays[1]);
+            score = score + get_points_for_result(plays[0], plays[1]);
         }
     }
+
+    println!("{}", score);
 }
 
-fn get_points_for_move(move: &str) -> i32 {
+fn get_points_for_move(our_move: &str) -> i32 {
+    let move_points = HashMap::from([
+        ("X", 1),
+        ("Y", 2),
+        ("Z", 3),
+    ]);
+    return move_points[our_move];
+}
 
+fn get_points_for_result(opponent_play: &str, our_play: &str) -> i32 {
+    let game_results = HashMap::from([
+        ("AX", 3),
+        ("AY", 0),
+        ("AZ", 6),
+        ("BX", 0),
+        ("BY", 3),
+        ("BZ", 6),
+        ("CX", 6),
+        ("CY", 0),
+        ("CZ", 3),
+    ]);
+
+    let mut game = String::new();
+    game.push(opponent_play);
+    game.push(our_play);
+
+    return game_results[game];
 }
