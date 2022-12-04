@@ -1,8 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/rust
 {
-	"name": "Rust",
-	"image": "mcr.microsoft.com/devcontainers/rust:1-bullseye"
+	"name": "dotnet",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:7.0-bullseye"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
