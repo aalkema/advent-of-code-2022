@@ -18,8 +18,13 @@ public class CrateManager {
     }
 
     public void MoveCrates(int source, int destination, int count) {
+        var temp = new Stack<char>();
         for (int i = 0; i < count; i++) {
-            MoveCrate(source, destination);
+            temp.Push(stacks[source].Pop());
+        }
+
+        for (int i =0; i < count; i++) {
+            stacks[destination].Push(temp.Pop());
         }
     }
 
@@ -42,10 +47,5 @@ public class CrateManager {
             topBuilder.Append(top);
         }
         return topBuilder.ToString();
-    }
-
-    private void MoveCrate(int source, int destination) {
-        char crate = stacks[source].Pop();
-        stacks[destination].Push(crate);
     }
 }
