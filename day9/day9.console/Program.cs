@@ -7,7 +7,7 @@ public class Program
         using FileStream fs = File.OpenRead("input.txt");
         using var sr = new StreamReader(fs);
 
-        var ropeManager = new RopeManager();
+        var ropeManager = new RopeManager(10);
         string line;
         while ((line = sr.ReadLine()) != null) {
             string[] command = line.Split(" ");
