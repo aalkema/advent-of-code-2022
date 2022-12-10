@@ -21,6 +21,6 @@ public class Program
             lineNum++;
         }
 
-        Console.WriteLine(forestGrid.GetNumberOfVisibleTrees());
+        Console.WriteLine(forestGrid.GetHighestScenicScore());
     }
 }

@@ -32,7 +32,76 @@ public class ForestGrid {
         return numVisibleTrees;
     }
 
-    public bool IsThereATallerTreeAboveAndBelow(int row, int column) {
+    public int GetHighestScenicScore() {
+        int bestScenicScore = 0;
+        for (int i = 0; i < _forest.GetLength(0); i++) {
+            for (int j = 0; j < _forest.GetLength(1); j++) {
+                int score = GetTreeScenicScore(i, j);
+                if (score > bestScenicScore) {
+                    bestScenicScore = score;
+                }
+            }
+        }
+
+        return bestScenicScore;
+    }
+
+    public int GetTreeScenicScore(int row, int column) {
+        return GetViewDown(row, column) *
+            GetViewUp(row, column) *
+            GetViewLeft(row, column) *
+            GetViewRight(row, column);
+    }
+
+    private int GetViewUp(int row, int column) {
+        int height = _forest[row, column];
+        int numTrees = 0;
+        for (int i = row-1; i>=0; i--) {
+            numTrees++;
+            if (_forest[i, column] >= height ) {
+                break;
+            }
+        }
+        return numTrees;
+    }
+
+    private int GetViewDown(int row, int column) {
+        int height = _forest[row, column];
+        int numTrees = 0;
+        for (int i = row+1; i<_forest.GetLength(1); i++) {
+            numTrees++;
+            if (_forest[i, column] >= height ) {
+                break;
+            }
+        }
+        return numTrees;
+    }
+
+    private int GetViewLeft(int row, int column) {
+        int height = _forest[row, column];
+        int numTrees = 0;
+        for (int i = column-1; i>=0; i--) {
+            numTrees++;
+            if (_forest[row, i] >= height ) {
+                break;
+            }
+        }
+        return numTrees;
+    }
+
+    private int GetViewRight(int row, int column) {
+        int height = _forest[row, column];
+        int numTrees = 0;
+        for (int i = column+1; i<_forest.GetLength(0); i++) {
+            numTrees++;
+            if (_forest[row, i] >= height ) {
+                break;
+            }
+        }
+        return numTrees;
+    }
+
+    private bool IsThereATallerTreeAboveAndBelow(int row, int column) {
         int height = _forest[row, column];
         bool atCurrentTree = false;
         bool tallerTreeAbove = false;
@@ -53,7 +122,7 @@ public class ForestGrid {
         return tallerTreeAbove && tallerTreeBelow;
     }
 
-    public bool IsThereATallerTreeLeftAndRight(int row, int column) {
+    private bool IsThereATallerTreeLeftAndRight(int row, int column) {
         int height = _forest[row, column];
         bool atCurrentTree = false;
         bool tallerTreeLeft = false;
