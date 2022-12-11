@@ -1,2 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace day11.console;
+
+public class Program
+{
+    private static void Main(string[] args)
+    {
+        using FileStream fs = File.OpenRead("input.txt");
+        using var sr = new StreamReader(fs);
+
+        string line;
+        while ((line = sr.ReadLine()) != null) {
+
+        }
+    }
+}
