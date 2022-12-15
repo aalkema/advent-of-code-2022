@@ -22,7 +22,7 @@ public class Program
         TerrainMap map = mapParser.GetMap();
         Console.WriteLine($"Start: {map.StartingPoint}, end: {map.DestinationPoint}");
 
-        var pathFinder = new PathFinder(map);
+        var pathFinder = new GraphPath(map);
         Console.WriteLine(pathFinder.GetShortestPath());
     }
 }
