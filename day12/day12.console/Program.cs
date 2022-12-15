@@ -20,7 +20,7 @@ public class Program
         }
 
         TerrainMap map = mapParser.GetMap();
-        Console.WriteLine($"Start: {map.StartingPoint}, end: {map.DestinationPoint}");
+        Console.WriteLine($"Start: {map.DestinationPoint}, end: First a");
 
         var pathFinder = new GraphPath(map);
         Console.WriteLine(pathFinder.GetShortestPath());

@@ -10,21 +10,20 @@ public class GraphPath {
         this.map = map;
         frontier = new Queue<(int, int)>();
         cameFrom = new Dictionary<(int, int), (int, int)>();
-        frontier.Enqueue(map.StartingPoint);
-        cameFrom.Add(map.StartingPoint, (-1, -1));
+        frontier.Enqueue(map.DestinationPoint);
+        cameFrom.Add(map.DestinationPoint, (-1, -1));
     }
 
     public int GetShortestPath() {
         int steps = 0;
         while (frontier.Count > 0) {
             var point = frontier.Dequeue();
-            if (point == map.DestinationPoint) {
+            if (map.Map[point.Item1, point.Item2] == 'a') {
                 return GetDistanceFromStart(point);
             }
             var neighbors = GetValidAdjacentPoints(point);
             foreach (var neighbor in neighbors) {
                 if (!cameFrom.ContainsKey(neighbor)) {
-                    //Console.WriteLine($"Enqueing {neighbor}");
                     File.AppendAllText("./output.txt", $"Enqueing {neighbor} from {point}" + Environment.NewLine);
                     cameFrom.Add(neighbor, point);
                     frontier.Enqueue(neighbor);
@@ -35,10 +34,10 @@ public class GraphPath {
     }
 
     public int GetDistanceFromStart((int, int) point) {
-        (int, int) previous = map.DestinationPoint;
+        (int, int) previous = point;
         int steps = 0;
-        Console.WriteLine($"Getting distance from {point} to {map.StartingPoint}");
-        while (previous != map.StartingPoint) {
+        Console.WriteLine($"Getting distance from {point} to {map.DestinationPoint}");
+        while (previous != map.DestinationPoint) {
             previous = cameFrom[previous];
             steps++;
         }
@@ -62,6 +61,8 @@ public class GraphPath {
 
     private bool PointIsValidNextStep((int, int) currentPoint, (int, int) destPoint) {
         //Console.WriteLine($"current: {currentPoint}, dest: {destPoint}");
-        return map.Map[destPoint.Item1, destPoint.Item2] <= map.Map[currentPoint.Item1, currentPoint.Item2] + 1;
+        return map.Map[destPoint.Item1, destPoint.Item2] + 1 == map.Map[currentPoint.Item1, currentPoint.Item2] ||
+            map.Map[destPoint.Item1, destPoint.Item2] == map.Map[currentPoint.Item1, currentPoint.Item2] ||
+            map.Map[destPoint.Item1, destPoint.Item2] > map.Map[currentPoint.Item1, currentPoint.Item2];
     }
 }

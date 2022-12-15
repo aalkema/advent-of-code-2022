@@ -13,8 +13,7 @@ public class MapParser {
     public void InputRow(string line) {
         char[] chars = line.ToArray();
         for (int i = 0; i < line.Length; i++) {
-            if (line[i] == 'S' || line[i] == 'a') {
-                map.StartingPoints.Add((currentRow, i));
+            if (line[i] == 'S') {
                 terrainmap[currentRow, i] = 'a';
             } else if (line[i] == 'E') {
                 map.DestinationPoint = (currentRow, i);
