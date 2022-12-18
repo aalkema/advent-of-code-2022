@@ -22,15 +22,15 @@ public class ScanResult {
         xs.Sort();
         ys.Sort();
         foreach (int x in Enumerable.Range(xs[0], (xs[1]- xs[0]) + 1)) {
-            Console.WriteLine($"Adding rock at ({(x, start.Item2)})");
+            //Console.WriteLine($"Adding rock at ({(x, start.Item2)})");
             scan[(x, start.Item2)] = Obstacle.Rock;
         }
         foreach (int y in Enumerable.Range(ys[0], (ys[1]- ys[0]) + 1)) {
             if (y > farthestDown) {
                 farthestDown = y;
-                Console.WriteLine($"new deepest: {y}");
+                //Console.WriteLine($"new deepest: {y}");
             }
-            Console.WriteLine($"Adding rock at ({(start.Item1, y)})");
+            //Console.WriteLine($"Adding rock at ({(start.Item1, y)})");
             scan[(start.Item1, y)] = Obstacle.Rock;
         }
     }

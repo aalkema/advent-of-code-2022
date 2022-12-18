@@ -15,6 +15,7 @@ public class Program
 
         var scan = rockPathParser.GetScanResult();
 
+        Console.WriteLine($"Deepest rock is {scan.FarthestDown}");
         var sandSimulator = new SandSimulator(scan, (500, 0));
         Console.WriteLine($"Sand capacity is: {sandSimulator.GetSandCapacity()}");
     }

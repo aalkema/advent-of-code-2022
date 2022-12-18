@@ -22,10 +22,13 @@ public class SandSimulator {
         return numDroppedSand;
     }
 
-    // Returns true when sand block falls into the abyss
+    // Returns true when sand is full to origin
     private bool DropSand() {
         (int, int) sandPosition = sandOrigin;
-        while (sandPosition.Item2 <= scanResult.FarthestDown) {
+        if (scanResult.Scan.ContainsKey(sandPosition)) {
+            return true;
+        }
+        while (sandPosition.Item2 < scanResult.FarthestDown + 1) {
             (int, int) downOne = (sandPosition.Item1, sandPosition.Item2 + 1);
             if (scanResult.Scan.ContainsKey(downOne)) {
                 (int, int) downLeft = (sandPosition.Item1 - 1, sandPosition.Item2 + 1);
@@ -33,7 +36,7 @@ public class SandSimulator {
                     (int, int) downRight = (sandPosition.Item1 + 1, sandPosition.Item2 + 1);
                     if (scanResult.Scan.ContainsKey(downRight)) {
                         scanResult.Scan[sandPosition] = Obstacle.Sand;
-                        Console.WriteLine($"Sand settled at {sandPosition}");
+                        //Console.WriteLine($"Sand settled at {sandPosition}");
                         return false;
                     } else {
                         sandPosition = downRight;
@@ -45,6 +48,8 @@ public class SandSimulator {
                 sandPosition = downOne;
             }
         }
-        return true;
+        Console.WriteLine($"Fell out the bottom {sandPosition}");
+        scanResult.Scan[sandPosition] = Obstacle.Sand;
+        return false;
     }
 }
